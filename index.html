@@ -16,7 +16,7 @@
             overflow: hidden;
         }
 
-        .video-container {
+        .video-container { 
             position: fixed; width: 100vw; height: 100vh;
         }
 
@@ -31,6 +31,7 @@
         let processor = {
             loaded: false,
             patCount: 0,
+            audioPlayer: 0,
             doLoad: function doLoad() {
                 if (this.loaded) {
                     return;
@@ -40,7 +41,8 @@
 
                 this.video = document.getElementById('video');
                 this.video.pause();
-                this.audio = document.getElementsByTagName('audio')[0];
+
+                this.audios = document.getElementsByTagName('audio');
 
                 document.addEventListener('touchstart', this.patDown.bind(this));
                 document.addEventListener('touchend', this.patUp.bind(this));
@@ -57,9 +59,11 @@
                 this.video.pause();
                 this.video.currentTime = 0.2;
 
-                this.audio.pause();
-                this.audio.currentTime = 0.002;
-                this.audio.play();
+                const audio = this.audios[this.audioPlayer]
+                audio.pause();
+                audio.currentTime = 0.001;
+                audio.play();
+                this.audioPlayer = (this.audioPlayer + 1) % 10;
 
                 this.patCount ++;
                 document.title = "(" + this.patCount + ") Miko Iino Pats Shirogane's Desk On Command";
@@ -77,6 +81,33 @@
 
 <body onload="processor.doLoad()">
     <div class="video-container">
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
         <audio>
             <source src="pat.mp3" type="audio/mp3">
         </audio>
