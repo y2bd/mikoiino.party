@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Miko Iino Pats Shirogane's Desk On Command</title>
+
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 0 auto;
+
+            background: black;
+            overflow: hidden;
+        }
+
+        .video-container {
+            position: fixed; width: 100vw; height: 100vh;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+    <script type="text/javascript">
+        let processor = {
+            loaded: false,
+            patCount: 0,
+            doLoad: function doLoad() {
+                if (this.loaded) {
+                    return;
+                }
+
+                this.loaded = true;
+
+                this.video = document.getElementById('video');
+                this.video.pause();
+                this.audio = document.getElementsByTagName('audio')[0];
+
+                document.addEventListener('touchstart', this.patDown.bind(this));
+                document.addEventListener('touchend', this.patUp.bind(this));
+                document.addEventListener('mousedown', this.patDown.bind(this));
+                document.addEventListener('mouseup', this.patUp.bind(this));
+                document.addEventListener('keydown', this.patDown.bind(this));
+                document.addEventListener('keyup', this.patUp.bind(this));
+            },
+            patDown: function patDown(event) {
+                if (event.repeat) {
+                    return;
+                }
+
+                this.video.pause();
+                this.video.currentTime = 0.2;
+
+                this.audio.pause();
+                this.audio.currentTime = 0.002;
+                this.audio.play();
+
+                this.patCount ++;
+                document.title = "(" + this.patCount + ") Miko Iino Pats Shirogane's Desk On Command";
+            },
+            patUp: function patUp() {
+                if (this.video.currentTime != 0.2) {
+                    return;
+                }
+
+                this.video.play();
+            }
+        };
+    </script>
+</head>
+
+<body onload="processor.doLoad()">
+    <div class="video-container">
+        <audio>
+            <source src="pat.mp3" type="audio/mp3">
+        </audio>
+        <video id="video" paused muted playsinline>
+            <source src="pat2.mp4" type="video/mp4">
+        </video>
+    </div>
+</body>
+
+</html>
